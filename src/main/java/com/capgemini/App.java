@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.xmp.XMPException;
 import lombok.SneakyThrows;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,21 +45,21 @@ public class App {
         }
     }
 
-    private static void writeFonts(BasePdfDocument basePdfDocument, ArrayList<Path> fonts) {
-        fonts.forEach(font -> createFontParagraph(basePdfDocument, font));
+    private static void writeFonts(BasePdfDocument basePdfDocument, ArrayList<Path> fontsList) {
+        fontsList.forEach(font -> createFontParagraph(basePdfDocument, font));
     }
 
     @SneakyThrows
     private static void createFontParagraph(BasePdfDocument basePdfDocument, Path font) {
         basePdfDocument.add(new Paragraph("Text written in font: " + font,
-                FontFactory.getFont(PATH_TO_GET_FONTS_FROM + "/" + font, BaseFont.WINANSI, BaseFont.EMBEDDED, 16)));
+                FontFactory.getFont(PATH_TO_GET_FONTS_FROM + File.pathSeparator + font, BaseFont.WINANSI, BaseFont.EMBEDDED, 16)));
     }
 
     private static ArrayList<Path> getFonts() throws IOException, URISyntaxException {
-        ArrayList<Path> files = new ArrayList<>();
+        ArrayList<Path> fontsList = new ArrayList<>();
         Files.newDirectoryStream(Paths.get(App.class.getClassLoader().getResource(PATH_TO_GET_FONTS_FROM).toURI()),
-                "*.{ttf}").forEach(f -> files.add(f.getFileName()));
-        return files;
+                "*.{ttf}").forEach(f -> fontsList.add(f.getFileName()));
+        return fontsList;
     }
 
 }
