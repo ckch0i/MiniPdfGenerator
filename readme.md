@@ -7,4 +7,4 @@ For this project you need:
 - enable lombok annotation processor
 
 Instructions:
-- add .tff files into /src/main/resources/fonts
+- add .ttf files into /src/main/resources/fonts
