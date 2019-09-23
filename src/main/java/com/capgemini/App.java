@@ -52,7 +52,7 @@ public class App {
     @SneakyThrows
     private static void createFontParagraph(BasePdfDocument basePdfDocument, Path font) {
         basePdfDocument.add(new Paragraph("Text written in font: " + font,
-                FontFactory.getFont(PATH_TO_GET_FONTS_FROM + File.pathSeparator + font, BaseFont.WINANSI, BaseFont.EMBEDDED, 16)));
+                FontFactory.getFont(App.class.getClassLoader().getResource(PATH_TO_GET_FONTS_FROM).toURI().toString()+ "/" + font, BaseFont.WINANSI, BaseFont.EMBEDDED, 16)));
     }
 
     private static ArrayList<Path> getFonts() throws IOException, URISyntaxException {
